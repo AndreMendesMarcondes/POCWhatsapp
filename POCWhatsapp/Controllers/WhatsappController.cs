@@ -20,12 +20,12 @@ namespace POCWhatsapp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Send(WhatsappRequestDTO whatsappRequestDTO)
+        public async Task<IActionResult> Send()
         {
-            var whatsappRequest = new WhatsappRequest(whatsappRequestDTO);
+            var whatsappRequest = FillDTO();
             string jsonRequest = JsonConvert.SerializeObject(whatsappRequest);
             StringContent body = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            var responseMessage =  await _client.PostAsync($"v13.0/{Environment.GetEnvironmentVariable("AppCode")}/messages", body);
+            var responseMessage = await _client.PostAsync($"v13.0/{Environment.GetEnvironmentVariable("AppCode")}/messages", body);
 
             if (responseMessage.IsSuccessStatusCode)
                 return StatusCode(201);
@@ -33,6 +33,42 @@ namespace POCWhatsapp.Controllers
             {
                 return StatusCode((int)responseMessage.StatusCode, await responseMessage.Content.ReadAsStringAsync());
             }
+        }
+
+        private static WhatsappRequest FillDTO()
+        {
+            var whatsappRequest = new WhatsappRequest();
+            whatsappRequest.to = "5516991538237";
+            whatsappRequest.template.name = "kabum_v0";
+            whatsappRequest.template.components = new List<Component>();
+
+            Component component = new Component();
+            component.type = "body";
+            component.parameters = new List<Parameter>();
+
+            Parameter parameter1 = new Parameter();
+            parameter1.type = "text";
+            parameter1.text = "André";
+            component.parameters.Add(parameter1);
+
+            Parameter parameter2 = new Parameter();
+            parameter2.type = "text";
+            parameter2.text = "R$99,91";
+            component.parameters.Add(parameter2);
+
+            Parameter parameter3 = new Parameter();
+            parameter3.type = "text";
+            parameter3.text = "Kabum";
+            component.parameters.Add(parameter3);
+
+            Parameter parameter4 = new Parameter();
+            parameter4.type = "text";
+            parameter4.text = "André";
+            component.parameters.Add(parameter4);
+
+            whatsappRequest.template.components.Add(component);
+
+            return whatsappRequest;
         }
     }
 }
