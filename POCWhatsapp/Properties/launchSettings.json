@@ -16,7 +16,9 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7244;http://localhost:5244",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Token": "EAAUhgxkdIHQBAK7MOjLWGYMLogp5Xf8Ly7Fxte98hKdzZADJAzB2dW1rSfWjcyVJ4ZBps0ZCPVHdWCbRyfVQILIV7B3v8fizyPYXcg8RttKJeAofWELFu3sfv96UdwZAKR82jfcMU9jTlaDCU9VfKNR26L6iE8oaSmT1zs5ZCk8oWzl4weM37l4vfPtJK3XT2ji8DZC7UKmwZDZD",
+        "AppCode": "103221349131299"
       }
     },
     "IIS Express": {
